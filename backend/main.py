@@ -28,7 +28,7 @@ app.add_middleware(
 # Static files
 app.mount("/static", StaticFiles(directory=Config.STATIC_DIR), name="static")
 
-@app.get("/health")
+@app.head("/health")
 async def health_check():
     return {"status": "healthy", "mock_mode": Config.MOCK_MODE}
 
