@@ -2,7 +2,7 @@
 
 **AdCraft Studio** is a next-generation AI-powered platform that enables brands and marketers to generate studio-quality ad creatives in seconds. By combining advanced image generation models (`fal-ai/nano-banana-pro`) with persuasive copywriting (`GPT-4o`), AdCraft Studio delivers production-ready assets tailored to your brand's unique style and tone.
 
-![AdCraft Studio Banner](/screenshots/banner.png)
+![AdCraft Studio Banner](/Screenshots/banner.png)
 
 ## 🚀 Key Features
 
