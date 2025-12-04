@@ -8,3 +8,4 @@ openai
 python-dotenv
 aiofiles
 fal-client
+supabase
