@@ -31,3 +31,23 @@ class TextService:
             "headline": f"Experience {brand_name}",
             "caption": f"The best choice for you. {tone} vibes only."
         }
+
+    @staticmethod
+    def generate_tagline(brand_name: str, tone: str) -> str:
+        """Generates a short, catchy tagline using GPT-4o or returns mock text."""
+        if Config.MOCK_MODE:
+            return f"{brand_name}: Simply the best."
+
+        try:
+            client = OpenAI(api_key=Config.OPENAI_API_KEY)
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": "You are a creative copywriter. Generate a single, short, catchy tagline for a brand. Return ONLY the tagline text, no quotes."},
+                    {"role": "user", "content": f"Brand: {brand_name}\nTone: {tone}"}
+                ]
+            )
+            return response.choices[0].message.content.strip().replace('"', '')
+        except Exception as e:
+            print(f"Error generating tagline: {e}")
+            return f"{brand_name}: The future is here."

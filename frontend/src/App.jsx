@@ -1,49 +1,19 @@
-import React, { useState } from 'react';
-import Hero from './components/Hero';
-import CreativeForm from './components/CreativeForm';
-import ResultsGallery from './components/ResultsGallery';
-import axios from 'axios';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
+import DemoPage from './pages/DemoPage';
+import AuthPage from './pages/AuthPage';
+import PricingPage from './pages/PricingPage';
 
 function App() {
-  const [results, setResults] = useState([]);
-  const [zipUrl, setZipUrl] = useState(null);
-  const [isGenerating, setIsGenerating] = useState(false);
-
-  const handleGenerate = async (formData) => {
-    setIsGenerating(true);
-    setResults([]);
-    setZipUrl(null);
-
-    try {
-      const API_URL = 'https://groundtruth-ai-hackathon.onrender.com' || 'http://localhost:8000';
-      const response = await axios.post(`${API_URL}/generate`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      setResults(response.data.creatives);
-      setZipUrl(response.data.zip_url);
-    } catch (error) {
-      console.error("Error generating creatives:", error);
-      alert("Failed to generate creatives. Please try again.");
-    } finally {
-      setIsGenerating(false);
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-white pb-20">
-      <Hero />
-      <CreativeForm onGenerate={handleGenerate} isGenerating={isGenerating} />
-      <ResultsGallery results={results} zipUrl={zipUrl} />
-
-      {/* Footer */}
-      <footer className="text-center py-8 text-gray-400 text-sm mt-20 border-t border-gray-100">
-        <p>© 2025 AI Creative Studio. Powered by NanoBananaPro & GPT-4o.</p>
-        <p>Developed by Karthik Sagar Nallagula</p>
-      </footer>
-    </div>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/demo" element={<DemoPage />} />
+      <Route path="/auth" element={<AuthPage />} />
+      <Route path="/pricing" element={<PricingPage />} />
+      <Route path="*" element={<LandingPage />} />
+    </Routes>
   );
 }
 
