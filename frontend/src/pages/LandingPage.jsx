@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Zap, Image as ImageIcon, Layers } from 'lucide-react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
+// import process from 'process';
 
 import axios from 'axios';
 import { useState } from 'react';
@@ -20,7 +21,8 @@ const ContactForm = () => {
         e.preventDefault();
         setStatus('sending');
         try {
-            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+            const API_URL = import.meta.env.VITE_API_URL || 'https://adcraft-ai-creative-studio.onrender.com';
+            
             await axios.post(`${API_URL}/contact`, formData);
             setStatus('success');
             setFormData({ name: '', email: '', subject: '', message: '' });
