@@ -9,3 +9,4 @@ python-dotenv
 aiofiles
 fal-client
 supabase
+sendgrid

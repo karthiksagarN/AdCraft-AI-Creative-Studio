@@ -14,6 +14,7 @@ from services.image_service import ImageService
 from services.text_service import TextService
 from services.zip_service import ZipService
 from services.auth_service import AuthService
+from services.email_service import EmailService
 
 app = FastAPI(title="AI Creative Studio API")
 
@@ -38,53 +39,10 @@ async def health_check():
 
 @app.post("/contact")
 async def contact_form(msg: ContactMessage):
-    import smtplib
-    from email.mime.text import MIMEText
-    from email.mime.multipart import MIMEMultipart
-
-    try:
-        sender_email = Config.MAIL_USERNAME
-        sender_password = Config.MAIL_PASSWORD
-        receiver_email = Config.MAIL_USERNAME # Send to self
-
-        if not sender_email or not sender_password:
-            print("Mail credentials not found. Logging to console instead.")
-            print(f"--- NEW CONTACT MESSAGE ---")
-            print(f"From: {msg.name} <{msg.email}>")
-            print(f"Subject: {msg.subject}")
-            print(f"Message: {msg.message}")
-            print(f"---------------------------")
-            return {"status": "success", "message": "Message logged (credentials missing)"}
-
-        # Create message
-        message = MIMEMultipart()
-        message["From"] = sender_email
-        message["To"] = receiver_email
-        message["Subject"] = f"New Contact Form: {msg.subject}"
-        message["Reply-To"] = msg.email
-
-        body = f"""
-        You have received a new message from the contact form.
-
-        Name: {msg.name}
-        Email: {msg.email}
-        Subject: {msg.subject}
-
-        Message:
-        {msg.message}
-        """
-        message.attach(MIMEText(body, "plain"))
-
-        # Send email
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-            server.login(sender_email, sender_password)
-            server.send_message(message)
-
-        return {"status": "success", "message": "Email sent successfully"}
-
-    except Exception as e:
-        print(f"Failed to send email: {e}")
-        raise HTTPException(status_code=500, detail=f"Failed to send email: {str(e)}")
+    res = EmailService.send_contact_email(msg.name, msg.email, msg.subject, msg.message)
+    if res["status"] == "error":
+        raise HTTPException(status_code=500, detail=res["message"])
+    return res
 
 @app.post("/auth/signup", response_model=AuthResponse)
 async def signup(user: UserSignup):

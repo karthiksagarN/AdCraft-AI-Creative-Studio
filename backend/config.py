@@ -15,6 +15,10 @@ class Config:
     MAIL_USERNAME = os.getenv("MAIL_USERNAME")
     MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
     
+    # SendGrid Config
+    SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
+    FROM_EMAIL = os.getenv("FROM_EMAIL")
+    
     MOCK_MODE = not (FAL_KEY and OPENAI_API_KEY)
     
     # Storage paths
