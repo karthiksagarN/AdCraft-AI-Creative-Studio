@@ -37,7 +37,7 @@ const DemoPage = () => {
                 return;
             }
 
-            const API_URL = 'https://groundtruth-ai-hackathon.onrender.com' || 'http://localhost:8000';
+            const API_URL = 'https://adcraft-ai-creative-studio.onrender.com' || 'http://localhost:8000';
             const response = await axios.post(`${API_URL}/generate`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
