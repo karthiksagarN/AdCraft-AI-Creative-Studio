@@ -21,7 +21,7 @@ const ContactForm = () => {
         e.preventDefault();
         setStatus('sending');
         try {
-            const API_URL = import.meta.env.VITE_API_URL || 'https://adcraft-ai-creative-studio.onrender.com';
+            const API_URL = 'https://adcraft-ai-creative-studio.onrender.com';
             
             await axios.post(`${API_URL}/contact`, formData);
             setStatus('success');

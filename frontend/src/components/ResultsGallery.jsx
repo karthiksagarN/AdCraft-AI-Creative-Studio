@@ -4,7 +4,7 @@ import { Download, ExternalLink } from 'lucide-react';
 const ResultsGallery = ({ results, zipUrl }) => {
     if (!results || results.length === 0) return null;
 
-    const API_URL = 'https://groundtruth-ai-hackathon.onrender.com' || 'http://localhost:8000';
+    const API_URL = 'https://adcraft-ai-creative-studio.onrender.com';
 
     return (
         <div className="container mx-auto px-4 py-20">
